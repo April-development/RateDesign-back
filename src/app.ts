@@ -1,31 +1,34 @@
 import * as express from 'express'
-import { Application } from 'express'
+import {Application} from 'express'
+
+interface IOptions {
+    port: Number
+    middleWares: Array<any>
+    endpoints: Array<any>
+}
 
 class App {
     public app: Application
     public port: Number
 
-    constructor(appInit: { port: Number; middleWares: any; controllers: any; }) {
+    constructor(options: IOptions) {
         this.app = express()
-        this.port = appInit.port
+        this.port = options.port
 
-        this.middlewares(appInit.middleWares)
-        this.routes(appInit.controllers)
+        this.middlewares(options.middleWares)
+        this.routes(options.endpoints)
     }
 
-    private middlewares(middleWares: { forEach: (arg0: (middleWare: any) => void) => void; }){
-        middleWares.forEach(middleWare => {
-            this.app.use(middleWare)
+    private middlewares(middleWares: any){
+
+    }
+
+    private routes(endpoints: Array<any>){
+        endpoints.forEach(endpoint => {
+            this.app.use('/', endpoint.router)
         })
     }
-
-    private routes(controllers: { forEach: (arg0: (controller: any) => void) => void; }){
-        controllers.forEach(controller => {
-            this.app.use('/', controller.router)
-        })
-    }
-
-    public listen() {
+    public listen(){
         this.app.listen(this.port, ()=>{
             console.log(`Сервер запущен на http://localhost:${this.port}`)
         })
