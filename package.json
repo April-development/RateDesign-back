@@ -19,5 +19,14 @@
   },
   "devDependencies": {
     "prettier": "^2.1.2"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "tabWidth": 4,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "bracketSpacing": true,
+    "arrowParens": "avoid"
   }
 }
