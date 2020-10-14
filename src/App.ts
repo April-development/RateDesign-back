@@ -2,30 +2,31 @@ import * as express from 'express'
 import {Application} from 'express'
 
 interface IOptions {
+    app?: Application
     port: Number
-    middleWares: Array<any>
+    middlewares: Array<any>
     endpoints: Array<any>
 }
 
-class App {
+export default class App {
     public app: Application
     public port: Number
 
     constructor(options: IOptions) {
-        this.app = express()
+        this.app = options.app || express()
         this.port = options.port
 
-        this.middlewares(options.middleWares)
+        this.middlewares(options.middlewares)
         this.routes(options.endpoints)
     }
 
-    private middlewares(middleWares: any){
+    private middlewares(middlewares: Array<any>){
 
     }
 
     private routes(endpoints: Array<any>){
         endpoints.forEach(endpoint => {
-            this.app.use('/', endpoint.router)
+            this.app.use('/', endpoint)
         })
     }
     public listen(){
@@ -34,5 +35,3 @@ class App {
         })
     }
 }
-
-export default App

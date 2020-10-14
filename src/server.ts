@@ -1,15 +1,11 @@
-import App from "./app";
-import SendFiles from './api/hello'
-import RouterFactory from "./routerFactory";
-
-new RouterFactory('api')
+import App from "./App";
+import RouterFactory from "./RouterFactory"
 
 const app = new App({
+    app: RouterFactory.createRouter("./root"),
     port: 3000,
-    middleWares: [],
-    endpoints: [
-        SendFiles
-    ]
+    middlewares: [],
+    endpoints: []
 })
 
 app.listen()
