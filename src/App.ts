@@ -1,5 +1,5 @@
 import * as express from 'express'
-import {Application} from 'express'
+import { Application } from 'express'
 
 interface IOptions {
     app?: Application
@@ -20,17 +20,15 @@ export default class App {
         this.routes(options.endpoints)
     }
 
-    private middlewares(middlewares: Array<any>){
+    private middlewares(middlewares: Array<any>) {}
 
-    }
-
-    private routes(endpoints: Array<any>){
+    private routes(endpoints: Array<any>) {
         endpoints.forEach(endpoint => {
             this.app.use('/', endpoint)
         })
     }
-    public listen(){
-        this.app.listen(this.port, ()=>{
+    public listen() {
+        this.app.listen(this.port, () => {
             console.log(`Сервер запущен на http://localhost:${this.port}`)
         })
     }
