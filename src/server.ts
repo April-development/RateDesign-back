@@ -1,11 +1,9 @@
-import App from "./App";
-import RouterFactory from "./RouterFactory"
+import App from './App'
+import RouterFactory from './RouterFactory'
 
 const app = new App({
-    app: RouterFactory.createRouter("./root"),
     port: 3000,
-    middlewares: [],
-    endpoints: []
+    routes: new RouterFactory('./root').getAllRoutesHandlers(),
 })
 
 app.listen()

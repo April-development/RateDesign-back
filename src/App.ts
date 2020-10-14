@@ -1,11 +1,10 @@
 import * as express from 'express'
-import { Application } from 'express'
+import type { Application, Router } from 'express'
 
 interface IOptions {
     app?: Application
     port: Number
-    middlewares: Array<any>
-    endpoints: Array<any>
+    routes: Array<Router>
 }
 
 export default class App {
@@ -16,17 +15,15 @@ export default class App {
         this.app = options.app || express()
         this.port = options.port
 
-        this.middlewares(options.middlewares)
-        this.routes(options.endpoints)
+        this.routes(options.routes)
     }
 
-    private middlewares(middlewares: Array<any>) {}
-
-    private routes(endpoints: Array<any>) {
-        endpoints.forEach(endpoint => {
-            this.app.use('/', endpoint)
+    private routes(routes: Array<Router>) {
+        routes.forEach(route => {
+            this.app.use(route)
         })
     }
+
     public listen() {
         this.app.listen(this.port, () => {
             console.log(`Сервер запущен на http://localhost:${this.port}`)
