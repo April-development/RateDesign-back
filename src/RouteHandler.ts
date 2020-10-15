@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express'
+import { Request, Response, NextFunction, Router } from 'express'
 
 interface IHandler {
     (req: Request, res: Response, next?: NextFunction): void
@@ -12,19 +12,25 @@ export interface IRouteHandler {
 }
 
 export default class RouteHandler implements IRouteHandler {
-    get(req: Request, res: Response): void {
+    get(req: Request, res: Response, _next?: NextFunction): void {
         res.status(404)
     }
 
-    delete(req: Request, res: Response): void {
+    delete(req: Request, res: Response, _next?: NextFunction): void {
         res.status(404)
     }
 
-    post(req: Request, res: Response): void {
+    post(req: Request, res: Response, _next?: NextFunction): void {
         res.status(404)
     }
 
-    put(req: Request, res: Response): void {
+    put(req: Request, res: Response, _next?: NextFunction): void {
         res.status(404)
+    }
+
+    public getRouter(path: string): Router {
+        const router = Router()
+        router.route(path).get(this.get).post(this.post).put(this.put).delete(this.delete)
+        return router
     }
 }
