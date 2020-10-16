@@ -1,5 +1,4 @@
-import * as express from 'express'
-import type { Application, Router } from 'express'
+import express, { Router, Application } from 'express'
 
 interface IOptions {
     app?: Application

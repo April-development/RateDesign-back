@@ -15,8 +15,16 @@ export default class RouterFactory {
         return this.getShortFilesPaths().map(path => this.getRoute(path))
     }
 
+    public getRouteMap(): void {
+        console.log('Список всех доступных маршрутов:')
+        this.getShortFilesPaths().forEach(path => console.log(path))
+    }
+
     private getRoute(path: string): Router {
-        return this.importFile(path).getRouter(path)
+        let file = this.importFile(path)
+        let router = Router()
+        router.route(path).get(file.get).post(file.post).put(file.put).delete(file.delete)
+        return router
     }
 
     private importFile(path: string): RouteHandler {
