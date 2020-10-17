@@ -4,6 +4,8 @@ interface IOptions {
     app?: Application
     port: Number
     routes: Array<Router>
+    statics?: Array<string>
+    addons?: Array<any>
 }
 
 export default class App {
@@ -15,6 +17,16 @@ export default class App {
         this.port = options.port
 
         this.routes(options.routes)
+        this.static(options.statics)
+        this.addons(options.addons)
+    }
+
+    private addons(addons) {
+        if (addons != undefined && addons.length) addons.forEach(addon => this.app.use(addon))
+    }
+
+    private static(paths) {
+        if (paths != undefined && paths.length) paths.forEach(path => this.app.use(express.static(path)))
     }
 
     private routes(routes: Array<Router>) {

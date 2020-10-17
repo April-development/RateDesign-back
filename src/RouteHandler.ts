@@ -1,10 +1,10 @@
-import { Request, Response, NextFunction } from 'express'
+import { Response, Request, NextFunction } from 'express'
 
 interface IHandler {
     (req: Request, res: Response, next?: NextFunction): void
 }
 
-export interface IRouteHandler {
+interface IRouteHandler {
     get: IHandler
     post: IHandler
     delete: IHandler
@@ -12,6 +12,8 @@ export interface IRouteHandler {
 }
 
 export default class RouteHandler implements IRouteHandler {
+    middlewares: Array<any>
+
     get(_req: Request, _res: Response, _next?: NextFunction): void {
         _res.status(404)
     }
