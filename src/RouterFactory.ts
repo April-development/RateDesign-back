@@ -24,7 +24,7 @@ export default class RouterFactory {
         let file = this.importFile(path)
         let router = Router()
         if (file.middlewares != undefined) {
-            router.use(file.middlewares)
+            router.use(path, file.middlewares)
         }
         router.route(path).get(file.get).post(file.post).put(file.put).delete(file.delete)
         return router
