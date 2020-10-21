@@ -23,10 +23,11 @@ export default class RouterFactory {
     private getRoute(path: string): Router {
         let file = this.importFile(path)
         let router = Router()
-        if (file.middlewares != undefined) {
-            router.use(path, file.middlewares)
+        let extendedPath = path+file.regExp
+        if (file.middlewares.all != undefined) {
+            router.use(extendedPath, file.middlewares.all)
         }
-        router.route(path).get(file.get).post(file.post).put(file.put).delete(file.delete)
+        router.route(extendedPath).get(file.get).post(file.post).put(file.put).delete(file.delete)
         return router
     }
 
